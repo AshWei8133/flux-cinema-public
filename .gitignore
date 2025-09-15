@@ -1,0 +1,84 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Environment-dependent path to Maven home directory
+/mavenHomeManager.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# 忽略 Eclipse IDE 產生的檔案
+.metadata/
+bin/
+.settings/
+.classpath
+.project
+
+# 忽略各種快取與索引檔
+*.index
+*.dat
+*.txt
+*.xml
+*.suo
+*.tsbuildinfo
+*.zip
+
+# 專案編譯與測試產出
+dist/
+dist-ssr/
+coverage/
+bin/
+target/
+
+### 2. 套件與依賴管理
+# Node.js 套件依賴
+node_modules/
+
+### 3. IDE 與編輯器設定
+# VS Code 設定
+.vscode/
+!.vscode/extensions.json
+
+# JetBrains IDEs (IntelliJ, WebStorm, etc.) 設定
+.idea/
+
+# Eclipse IDE 設定
+.metadata/
+.settings/
+.classpath
+.project
+# 忽略整個 Eclipse metadata 目錄
+/metadata/
+
+### 4. 特定作業系統或軟體檔案
+# Mac OS 自動生成的檔案
+.DS_Store
+
+# Cypress 測試結果
+/cypress/videos/
+/cypress/screenshots/
+
+### 5. 其他不需追蹤的檔案
+*.local
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.lock
+*.lock_info
+*.version.ini
+*.launch
+*.sublime-workspace
+*.properties
+*.markers
+*.history*
+*.location
+*.container
+
+# 忽略 Mac OS 自動生成的垃圾檔案
+.DS_Store
+
+# 忽略專案設定檔避免私密金鑰流出
+application.properties
+.env

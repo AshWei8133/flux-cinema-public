@@ -1,0 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+
+# 忽略 Eclipse IDE 產生的檔案
+.metadata/
+bin/
+.settings/
+.classpath
+.project
+
+# 忽略各種快取與索引檔
+*.index
+*.dat
+*.txt
+*.xml
+
+# 忽略 Mac OS 自動生成的垃圾檔案
+.DS_Store

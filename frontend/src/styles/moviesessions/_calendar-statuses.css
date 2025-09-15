@@ -1,0 +1,52 @@
+/* src/styles/_calendar-statuses.css */
+/* 根據日曆狀態碼設定樣式 */
+
+/* 歷史日期樣式 */
+.is-history-date .calendar-cell {
+  background-color: #f0f0f0 !important; /* 淺灰色背景 */
+  cursor: pointer !important;
+  border-radius: 4px;
+}
+/* 解決歷史日期被選中時，背景顏色被覆蓋的問題 */
+.is-selected.is-history-date .calendar-cell {
+  background-color: #e0e0e0 !important;
+}
+/* 歷史日期的數字顏色調整 */
+.is-history-date .date-number {
+  color: #303133 !important;
+}
+
+/* 今天日期樣式 */
+.is-today-highlight .calendar-cell {
+  background-color: var(--el-color-primary-light-9) !important;
+  border-radius: 4px;
+}
+.is-today-highlight .calendar-cell .date-number {
+  color: var(--el-text-color-primary) !important;
+}
+
+/* 過去日期樣式 */
+.is-past-date .calendar-cell {
+  background-color: #f5f5f5 !important;
+  border-radius: 4px;
+  cursor: pointer !important;
+}
+
+/* 確保今天單元格的背景色是我們自定義的，而不是 Element Plus 的藍色 */
+:deep(.el-calendar-table .current.is-selected .el-calendar-day) {
+  background-color: transparent !important;
+}
+/* 確保今天單元格的藍色豎線被移除 */
+:deep(.el-calendar-table .current.is-selected) {
+  border-left: none !important;
+}
+/* 確保所有單元格的背景都是透明的，讓我們的自定義樣式能作用 */
+:deep(.el-calendar-table .el-calendar-day) {
+  background-color: transparent !important;
+}
+/* 有排片或待排片日期的 hover 效果 */
+:deep(
+  .el-calendar-table .current:not(.is-history-date):not(.is-today-highlight) .el-calendar-day:hover
+) {
+  background-color: #f5f7fa !important;
+}

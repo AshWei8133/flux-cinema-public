@@ -1,0 +1,252 @@
+/* src/styles/_calendar-popover.css */
+/* 負責 el-popover 彈窗內的排片預覽樣式 */
+
+/*
+   這裡的樣式使用 :deep() 穿透 Element Plus 元件的內部結構。
+   這是因為 el-popover 在 DOM 中渲染的位置通常在應用程式的最外層，
+   不受 Vue 單文件元件的 scoped 樣式影響，所以需要使用 :deep() 來確保樣式能作用到它身上。
+*/
+
+/* 1. Popover 彈窗主體樣式調整 */
+/* 使用 .schedule-popover 這個自定義類別來鎖定特定的彈窗，避免影響其他 popover */
+:deep(.el-popover.schedule-popover .el-popover__content) {
+  /*
+     將彈窗內容的最大高度限制為視窗高度的 70%。
+     這就是解決滑動調跑到外層的核心關鍵。當內容超過這個高度，
+     就會在彈窗內部產生捲動條，而不是在整個網頁上。
+  */
+  max-height: 70vh;
+
+  /*
+     如果內容超出了設定的最大高度，就顯示垂直捲動條。
+     這是讓內容可以在彈窗內捲動的關鍵屬性。
+  */
+  overflow-y: auto;
+
+  /* 在捲動條右側留出一些空間，讓內容與捲動條之間不會太擠。 */
+  padding-right: 8px;
+}
+
+/* 2. Popover 內容的樣式 */
+:deep(.popover-content) {
+  /* 設定字體，以確保在不同作業系統上有一致的顯示效果 */
+  font-family:
+    'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  padding: 10px;
+}
+:deep(.popover-title) {
+  font-weight: bold;
+  font-size: 16px;
+  /* 標題與下方內容之間留出間距 */
+  margin-bottom: 10px;
+  text-align: center;
+}
+:deep(.schedule-grid) {
+  /* 使用 Flexbox 將影廳類型區塊垂直排列 */
+  display: flex;
+  flex-direction: column;
+  /* 移除項目之間的預設間距 */
+  gap: 0;
+}
+:deep(.no-schedule-overall) {
+  /* 處理沒有排片時的提示文字樣式 */
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* 3. 影廳類型區塊樣式 (例如 IMAX、一般廳) */
+:deep(.theater-type-group) {
+  margin-bottom: 8px;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  position: relative;
+}
+:deep(.theater-type-title) {
+  font-weight: bold;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 0;
+  /* 讓滑鼠移到標題上時顯示為可點擊的手指圖標 */
+  cursor: pointer;
+  /* 使用 Grid 佈局，將切換圖標和標題名稱分開 */
+  display: grid;
+  grid-template-columns: min-content 1fr; /* 切換圖標佔最小空間，標題佔剩餘空間 */
+  align-items: center;
+}
+:deep(.theater-type-title::after) {
+  /* 使用偽元素在標題下方創建一條分隔線 */
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+:deep(.theater-type-title::before) {
+  /* 移除 Element Plus 可能帶來的預設偽元素 */
+  display: none;
+}
+:deep(.toggle-icon) {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  /* 設定旋轉動畫的過渡效果，讓切換看起來更平滑 */
+  transition: transform 0.3s ease;
+  transform: rotate(0deg); /* 預設為展開狀態，箭頭朝右 */
+}
+:deep(.toggle-icon.expanded) {
+  /* 展開狀態下，箭頭旋轉 90 度，朝下 */
+  transform: rotate(90deg);
+}
+:deep(.toggle-icon svg) {
+  width: 1em;
+  height: 1em;
+}
+
+/* 4. 每個影廳內部的時間軸樣式 */
+:deep(.theater-list-header) {
+  /* 使用 Grid 佈局，將影廳名稱佔位符和時間軸分開 */
+  display: grid;
+  grid-template-columns: 80px 1fr; /* 佔位符寬度固定，時間軸佔剩餘空間 */
+  align-items: center;
+  margin-bottom: 5px;
+}
+:deep(.header-name-placeholder) {
+  /* 確保佔位符的寬度與下方的 .theater-name 保持一致 */
+  width: 80px;
+  flex-shrink: 0;
+}
+:deep(.header-time-axis) {
+  /* 將「早、午、晚」三個時間點平均分配空間 */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0;
+  font-size: 10px;
+  color: #2b2c2d;
+  text-align: center;
+}
+
+/* 5. 影廳名稱與排片條樣式 */
+:deep(.theater-row) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+:deep(.theater-name) {
+  /* 影廳名稱的樣式，例如「1廳」 */
+  font-weight: bold;
+  font-size: 12px;
+  color: #333333;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: 80px;
+  flex-shrink: 0;
+  text-align: left;
+}
+:deep(.schedule-bar-wrapper) {
+  /* 讓排片條相對於這個容器定位 */
+  position: relative;
+  /* 讓它佔據所有可用空間 */
+  flex-grow: 1;
+}
+:deep(.schedule-bar) {
+  /* 排片時間軸的背景條 */
+  position: relative;
+  height: 25px;
+  flex-grow: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  border: #434444 solid 1px;
+}
+:deep(.no-schedule-block) {
+  /* 處理當天沒有排片時的提示文字樣式 */
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+  white-space: nowrap;
+  text-align: center;
+  /* 使用絕對定位將文字置中 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+/* 6. 虛線樣式 (代表時間軸上的區間，例如早上、下午) */
+:deep(.divider-line) {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-left: 1px dashed #1d1c1c5d;
+  z-index: 3; /* 確保虛線在電影色塊上方 */
+}
+:deep(.divider-line.first) {
+  left: 30%; /* 早上到中午的分隔線 */
+}
+:deep(.divider-line.middle) {
+  left: 60%; /* 中午到晚上的分隔線 */
+}
+:deep(.divider-line.last) {
+  /* 隱藏第三條虛線，因為只有兩個分隔點 */
+  display: none;
+}
+
+/* 7. 電影區塊樣式 (表示單一場電影) */
+:deep(.movie-block) {
+  font-weight: 500;
+  position: absolute; /* 相對於 .schedule-bar 進行絕對定位 */
+  top: 0;
+  height: 100%;
+  color: black;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 2; /* 確保在排片條背景上，但又在虛線下方 */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 處理文字超出區塊時的樣式 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid;
+  /* 確保沒有陰影 */
+  box-shadow: none !important;
+}
+:deep(.movie-block > span) {
+  /* 讓子元素的文字也繼承父元素的截斷效果 */
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+/* 8. 過渡動畫樣式 (用於影廳列表的展開與收合) */
+:deep(.fade-in-down-enter-active),
+:deep(.fade-in-down-leave-active) {
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+}
+:deep(.fade-in-down-enter-from),
+:deep(.fade-in-down-leave-to) {
+  /* 從沒有高度和透明度到完全顯示的過渡效果 */
+  height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}

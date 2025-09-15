@@ -1,0 +1,116 @@
+/* src/styles/_calendar-overrides.css */
+/* 負責覆蓋 Element Plus el-calendar 的預設樣式 */
+
+/* 隱藏內建的 header */
+:deep(.el-calendar__header) {
+  display: none;
+}
+
+/* 調整日曆主體 padding */
+:deep(.el-calendar__body) {
+  padding: 0 20px 20px 20px;
+}
+
+/* 隱藏星期幾的英文，並用中文偽元素取代 */
+:deep(.el-calendar-table thead th) {
+  color: transparent;
+  font-weight: normal;
+  position: relative;
+}
+
+/* 星期標題的通用樣式 */
+:deep(.el-calendar-table thead th::before) {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #606266;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* 針對每個星期的標題單獨設定內容 */
+:deep(.el-calendar-table thead th:nth-child(1)::before) {
+  content: '日';
+}
+:deep(.el-calendar-table thead th:nth-child(2)::before) {
+  content: '一';
+}
+:deep(.el-calendar-table thead th:nth-child(3)::before) {
+  content: '二';
+}
+:deep(.el-calendar-table thead th:nth-child(4)::before) {
+  content: '三';
+}
+:deep(.el-calendar-table thead th:nth-child(5)::before) {
+  content: '四';
+}
+:deep(.el-calendar-table thead th:nth-child(6)::before) {
+  content: '五';
+}
+:deep(.el-calendar-table thead th:nth-child(7)::before) {
+  content: '六';
+}
+
+/* 移除預設的日曆單元格 hover 效果 */
+:deep(.el-calendar-day:hover) {
+  background-color: transparent !important;
+}
+
+/* 處理非本月的日期單元格，使其變暗且不可點擊 */
+:deep(.el-calendar-table .prev .el-calendar-day),
+:deep(.el-calendar-table .next .el-calendar-day) {
+  background-color: rgba(0, 0, 0, 0.17) !important;
+  pointer-events: none;
+}
+:deep(.el-calendar-table .prev .calendar-cell),
+:deep(.el-calendar-table .next .calendar-cell) {
+  background: transparent !important;
+}
+:deep(.el-calendar-table .prev .date-number),
+:deep(.el-calendar-table .next .date-number) {
+  font-size: 0;
+}
+:deep(.el-calendar-table .prev .el-calendar-day:hover),
+:deep(.el-calendar-table .next .el-calendar-day:hover) {
+  background-color: #000 !important;
+}
+
+/* 當儲存格處於載入狀態時，讓裡面的內容半透明 */
+:deep(.el-calendar-table .el-calendar-day.is-loading .date-content) {
+  opacity: 0.3;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 將儲存格設為相對定位，作為 loading 圖示的定位基準 */
+:deep(.el-calendar-table .el-calendar-day.is-loading) {
+  position: relative;
+}
+
+/* 使用 ::after 偽元素在儲存格中央建立一個旋轉的 loading 圖示 */
+:deep(.el-calendar-table .el-calendar-day.is-loading::after) {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px; /* height 的一半 */
+  margin-left: -10px; /* width 的一半 */
+
+  /* 繪製 loading 圓環 */
+  border: 3px solid rgba(64, 158, 255, 0.2); /* 圓環底色 */
+  border-top-color: #409eff; /* 圓環旋轉部分的顏色 */
+  border-radius: 50%;
+
+  /* 指定旋轉動畫 */
+  animation: calendar-cell-spin 0.8s linear infinite;
+}
+
+/* 定義旋轉動畫的關鍵影格 */
+@keyframes calendar-cell-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
